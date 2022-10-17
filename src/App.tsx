@@ -1,5 +1,5 @@
 import React from 'react';
-import {RouteObject, Routes, useRoutes} from 'react-router-dom';
+import {RouteObject, useRoutes} from 'react-router-dom';
 import IntroPage from './pages/IntroPage/IntroPage';
 import PalayersChoicePage from './pages/PlayersChoicePage/PalayersChoicePage';
 import Settings from './pages/Settings/Settings';
