@@ -1,9 +1,9 @@
 import { Box, Button, SxProps, Theme } from '@mui/material';
-import React, { useContext, useMemo } from 'react';
-import { DisplaySymbol } from '../GamePad/GamePad';
+import React from 'react';
+import { DisplaySymbol, RowStart } from '../GamePad/GamePad';
 
 interface RowButtonsProps {
-  startPosition: 1 | 4 | 7;
+  startPosition:RowStart;
   onButtonClick: (value: number) => void;
   rowLayout: DisplaySymbol[];
 }

@@ -1,12 +1,19 @@
 import { Box } from '@mui/material';
 import React, { useCallback, useContext, useMemo, useState } from 'react';
-import GameContext, { GameSymbol, Selection } from '../../context/GameContext';
+import { GameSymbol } from '../../context/contextTypes';
+import GameContext from '../../context/GameContext';
+import { CurrentPlayer } from '../../pages/GamePage/GamePage';
 import RowButtons from '../RowButtons/RowButtons';
 
-type CurrentPlayer = 1 | 2 ;
+
 export type RowStart = 1 | 4 | 7;
+type Count = 0 | 1 | 2 | 3;
 export type DisplaySymbol = 'X' | 'O' | '';
 const defaultLayout = ['-', '-', '-', '-', '-', '-', '-', '-', '-', '-'];
+interface GamePadProps {
+  currentPlayer: CurrentPlayer;
+  setCurrentPlayer: (value: CurrentPlayer) => void;
+}
 
 const formatDisplay = (value: GameSymbol) => {
   
@@ -16,58 +23,43 @@ const formatDisplay = (value: GameSymbol) => {
     return result;
 };
 
-const GamePad: React.FC = () => {
+const GamePad = ({ currentPlayer, setCurrentPlayer }: GamePadProps) => {
   const { playersSymbol } = useContext(GameContext);
   const [gameLayout, setGameLayout] = useState<GameSymbol[]>(() => defaultLayout as GameSymbol[]);
-  // const [buttonValues, setbuttonValues] = useState(second)
-  const [currentPlayer, setCurrentPlayer] = useState<CurrentPlayer>(1);
+  const [roundCount, setRoundCount] = useState<Count>(() => 0);
+  
 
   const _handlePlayerChoice = useCallback((value: number) => {
     const layoutClone = gameLayout;
     const symbol = playersSymbol[currentPlayer - 1];
     layoutClone[value] = symbol;
     setGameLayout(layoutClone);
-    setCurrentPlayer((d) => d === 1 ? 2 : 1);
-  }, [currentPlayer, gameLayout, playersSymbol]);
-
+    setCurrentPlayer(currentPlayer === 1 ? 2 : 1);
+  }, [currentPlayer, gameLayout, playersSymbol, setCurrentPlayer]);
   
-
-  
-  const rowValues = useMemo(() => {
+  const rows = useMemo(() => {
     const result: any[] = [];
-    [1, 4, 7].forEach((i) => {
+    [1, 4, 7].forEach((i) => {      
       result.push(
-        [
-          formatDisplay(gameLayout[i]),
-          formatDisplay(gameLayout[i + 1]),
-          formatDisplay(gameLayout[i + 2]),
-        ]
+        <RowButtons
+          key={`Row ${i}`} 
+          startPosition={i as RowStart} 
+          onButtonClick={_handlePlayerChoice}
+          rowLayout={[
+            formatDisplay(gameLayout[i]),
+            formatDisplay(gameLayout[i + 1]),
+            formatDisplay(gameLayout[i + 2]),
+          ]}
+        />
       );
     });
     return result;
-    }, [gameLayout]);
+  }, [_handlePlayerChoice, gameLayout]);
 
 
   return (
     <Box>
-     {/* top buttons */}
-      <RowButtons 
-        startPosition={1} 
-        onButtonClick={_handlePlayerChoice}
-        rowLayout={rowValues[0]}
-      />
-      {/* Middle buttons */}
-      <RowButtons
-        startPosition={4} 
-        onButtonClick={_handlePlayerChoice}
-        rowLayout={rowValues[1]}
-      />
-      {/* Bottom buttons */}
-      <RowButtons
-        startPosition={7} 
-        onButtonClick={_handlePlayerChoice}
-        rowLayout={rowValues[2]}
-      />
+      {rows}
     </Box>
   );
 };

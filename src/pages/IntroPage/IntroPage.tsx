@@ -2,8 +2,9 @@ import { SxProps, Theme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import React, { useContext } from 'react';
 import { Button, Typography } from '@mui/material';
-import GameContext, { Mode } from '../../context/GameContext';
+import GameContext from '../../context/GameContext';
 import { useNavigate } from 'react-router-dom';
+import { Mode } from '../../context/contextTypes';
 
 const rootSx: SxProps<Theme> = {
   display: "flex",
@@ -22,17 +23,16 @@ const contentSx: SxProps<Theme> = {
 };
 
 const title = 'Xs & Os';
-// const footer = `${&copy;} 2022 Nial`;
-
 
 const IntroPage: React.FC = () => {
-  const {setPlayerMode} = useContext(GameContext);
+  const {setGameMode} = useContext(GameContext);
   const navigate = useNavigate();
 
   const _handleModeSelection = (mode: Mode) => {
-    setPlayerMode( mode);
+    setGameMode( mode);
     navigate("/select", { replace: true });
   }
+  
   const buttons = [
     { text: 'Single Player', onClick: () => _handleModeSelection('single') },
     { text: 'Multiple Players', onClick: () => _handleModeSelection('multiple') },
