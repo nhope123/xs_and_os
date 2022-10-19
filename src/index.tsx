@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { GameProvider } from './context/GameContext';
 
 const theme = createTheme();
 
@@ -15,7 +16,9 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <ThemeProvider theme={theme} >
-        <App />
+        <GameProvider>
+          <App />
+        </GameProvider>
       </ThemeProvider>
     </BrowserRouter>
   </React.StrictMode>

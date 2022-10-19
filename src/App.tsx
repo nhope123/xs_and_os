@@ -1,5 +1,6 @@
 import React from 'react';
 import {RouteObject, useRoutes} from 'react-router-dom';
+import GamePage from './pages/GamePage/GamePage';
 import IntroPage from './pages/IntroPage/IntroPage';
 import PalayersChoicePage from './pages/PlayersChoicePage/PalayersChoicePage';
 import Settings from './pages/Settings/Settings';
@@ -12,8 +13,12 @@ const App = () => {
       element: <IntroPage />      
     },
     {
-      path: "/x-or-o",
+      path: "/select",
       element: <PalayersChoicePage />
+    },
+    {
+      path: '/play',
+      element: <GamePage/>
     },
     {
       path: "/settings",
