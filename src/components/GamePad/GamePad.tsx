@@ -4,6 +4,7 @@ import { GameSymbol } from '../../context/contextTypes';
 import GameContext from '../../context/GameContext';
 import { CurrentPlayer } from '../../pages/GamePage/GamePage';
 import RowButtons from '../RowButtons/RowButtons';
+import { useLocalStorage } from 'usehooks-ts';
 
 
 export type RowStart = 1 | 4 | 7;
@@ -24,6 +25,8 @@ const formatDisplay = (value: GameSymbol) => {
 };
 
 const GamePad = ({ currentPlayer, setCurrentPlayer }: GamePadProps) => {
+  const [player1Stats, setPlayer1Stats] = useLocalStorage(player1Statistic, '');
+  const [player2Stats, setPlayer2Stats] = useLocalStorage(player2Statistic, '');
   const { playersSymbol } = useContext(GameContext);
   const [gameLayout, setGameLayout] = useState<GameSymbol[]>(() => defaultLayout as GameSymbol[]);
   // const [roundCount, setRoundCount] = useState<Count>(() => 0);

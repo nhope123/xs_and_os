@@ -1,8 +1,13 @@
-import { Box, Stack, Switch, SxProps, Theme, Typography } from '@mui/material';
+import { Box, SxProps, Theme } from '@mui/material';
 import React from 'react';
 import { useLocalStorage } from 'usehooks-ts';
+import SettingsSwitch from '../../components/SettingsSwitch/SettingsSwitch';
 
-const statisticText = 'Cumulative Statistic';
+const player1 = 'Save Player 1 Cumulative Statistic';
+const player2 = 'Save Player 2 Cumulative Statistic';
+
+export const player1Statistic = 'tic-tac-toe-save-player1-statistics';
+export const player2Statistic = 'tic-tac-toe-save-player2-statistics';
 
 const rootSx: SxProps<Theme> = {
   display: 'flex',
@@ -12,31 +17,33 @@ const rootSx: SxProps<Theme> = {
   height: '100vh',
   width: '100vw',
 }
-const statSx: SxProps<Theme> = {
-
-}
-
-const statName = 'tic-tac-toe-save-player-statistics';
 
 const Settings = () => {
-  const [saveStats, setSaveStats] = useLocalStorage(statName, false);
+  const [savePlayer1Stats, setSavePlayer1Stats] = useLocalStorage(player1Statistic, false);
+  const [savePlayer2Stats, setSavePlayer2Stats] = useLocalStorage(player2Statistic, false);
+
+  const stats = {
+    player1: {
+      settingsText: player1,
+      switchLeftText: 'Off',
+      switchRightText: 'On',
+      switchState: savePlayer1Stats,
+      onChange: (() => setSavePlayer1Stats((d) => !d)),
+    },
+    player2: {
+      settingsText: player2,
+      switchLeftText: 'Off',
+      switchRightText: 'On',
+      switchState: savePlayer2Stats,
+      onChange: (() => setSavePlayer2Stats((d) => !d)),
+    },
+
+  }
 
   return (
     <Box sx={rootSx}>
-      <Box sx={statSx}>
-        <Typography>{statisticText}</Typography>
-        <Box>
-          <Stack direction="row" spacing={1} alignItems="center">
-            <Typography>Off</Typography>
-            <Switch
-              checked={saveStats}
-              inputProps={{ 'aria-label': 'ant design' }}
-              onChange={() => setSaveStats((d) => !d)}
-            />
-            <Typography>On</Typography>
-          </Stack>
-        </Box>
-      </Box>
+      <SettingsSwitch { ...stats.player1 } />
+      <SettingsSwitch { ...stats.player2 } />
     </Box>
   );
 };

@@ -1,9 +1,11 @@
 import React from 'react';
+import Player1StatsTab from './components/Player1Stats';
 
-const StatisticPage: React.FC = () => {
+const StatisticPage = () => {
+
   return (
     <div>
-      Statiistic Page
+      <Player1StatsTab />
     </div>
   );
 };
