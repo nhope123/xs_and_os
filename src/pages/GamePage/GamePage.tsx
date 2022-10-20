@@ -34,7 +34,7 @@ const GamePage: React.FC = () => {
         player: gameMode === 'multiple' ? 'Player 1 turn' : 'It\'s your turn',
         symbol: playersSymbol[0]
       } 
-      : {player: gameMode === 'multiple' ? 'Player 2 turn' : 'CPU', symbol: playersSymbol[1]};   
+      : {player: gameMode === 'multiple' ? 'Player 2 turn' : 'CPU', symbol: playersSymbol[1]};  
   }, [currentPlayer, gameMode, playersSymbol]);
 
   return (

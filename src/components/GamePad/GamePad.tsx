@@ -7,7 +7,7 @@ import RowButtons from '../RowButtons/RowButtons';
 
 
 export type RowStart = 1 | 4 | 7;
-type Count = 0 | 1 | 2 | 3;
+// type Count = 0 | 1 | 2 | 3;
 export type DisplaySymbol = 'X' | 'O' | '';
 const defaultLayout = ['-', '-', '-', '-', '-', '-', '-', '-', '-', '-'];
 interface GamePadProps {
@@ -26,7 +26,7 @@ const formatDisplay = (value: GameSymbol) => {
 const GamePad = ({ currentPlayer, setCurrentPlayer }: GamePadProps) => {
   const { playersSymbol } = useContext(GameContext);
   const [gameLayout, setGameLayout] = useState<GameSymbol[]>(() => defaultLayout as GameSymbol[]);
-  const [roundCount, setRoundCount] = useState<Count>(() => 0);
+  // const [roundCount, setRoundCount] = useState<Count>(() => 0);
   
 
   const _handlePlayerChoice = useCallback((value: number) => {
