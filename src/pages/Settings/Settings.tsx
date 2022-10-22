@@ -6,8 +6,10 @@ import SettingsSwitch from '../../components/SettingsSwitch/SettingsSwitch';
 const player1 = 'Save Player 1 Cumulative Statistic';
 const player2 = 'Save Player 2 Cumulative Statistic';
 
-export const player1Statistic = 'tic-tac-toe-save-player1-statistics';
-export const player2Statistic = 'tic-tac-toe-save-player2-statistics';
+export const savePlayer1Statistic = 'tic-tac-toe-save-player1-statistics';
+export const savePlayer2Statistic = 'tic-tac-toe-save-player2-statistics';
+export const player1Statistic = 'tic-tac-toe-player1-statistics';
+export const player2Statistic = 'tic-tac-toe-player2-statistics';
 
 const rootSx: SxProps<Theme> = {
   display: 'flex',
@@ -19,8 +21,8 @@ const rootSx: SxProps<Theme> = {
 }
 
 const Settings = () => {
-  const [savePlayer1Stats, setSavePlayer1Stats] = useLocalStorage(player1Statistic, false);
-  const [savePlayer2Stats, setSavePlayer2Stats] = useLocalStorage(player2Statistic, false);
+  const [savePlayer1Stats, setSavePlayer1Stats] = useLocalStorage(savePlayer1Statistic, false);
+  const [savePlayer2Stats, setSavePlayer2Stats] = useLocalStorage(savePlayer2Statistic, false);
 
   const stats = {
     player1: {

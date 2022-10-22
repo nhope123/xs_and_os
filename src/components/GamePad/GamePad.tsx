@@ -5,7 +5,23 @@ import GameContext from '../../context/GameContext';
 import { CurrentPlayer } from '../../pages/GamePage/GamePage';
 import RowButtons from '../RowButtons/RowButtons';
 import { useLocalStorage } from 'usehooks-ts';
+import { player1Statistic, player2Statistic } from '../../pages/Settings/Settings';
 
+export const defaultStats = {
+  singlePlayer: {
+    wins: 0,
+    loses: 0,
+    draws: 0,
+    success: 0,
+  },
+  twoPlayer: {
+    wins: 0,
+    loses: 0,
+    draws: 0,
+    success: 0,
+  },
+  totalSuccess: 0,
+}
 
 export type RowStart = 1 | 4 | 7;
 // type Count = 0 | 1 | 2 | 3;
@@ -16,17 +32,11 @@ interface GamePadProps {
   setCurrentPlayer: (value: CurrentPlayer) => void;
 }
 
-const formatDisplay = (value: GameSymbol) => {
-  
-  const result = value === 'X' || value === 'O' ? value : '';
-    console.log(result);
-    
-    return result;
-};
+const formatDisplay = (value: GameSymbol) => value === 'X' || value === 'O' ? value : '';
 
 const GamePad = ({ currentPlayer, setCurrentPlayer }: GamePadProps) => {
-  const [player1Stats, setPlayer1Stats] = useLocalStorage(player1Statistic, '');
-  const [player2Stats, setPlayer2Stats] = useLocalStorage(player2Statistic, '');
+  const [player1Stats, setPlayer1Stats] = useLocalStorage(player1Statistic, JSON.stringify(defaultStats));
+  const [player2Stats, setPlayer2Stats] = useLocalStorage(player2Statistic, JSON.stringify(defaultStats));
   const { playersSymbol } = useContext(GameContext);
   const [gameLayout, setGameLayout] = useState<GameSymbol[]>(() => defaultLayout as GameSymbol[]);
   // const [roundCount, setRoundCount] = useState<Count>(() => 0);
